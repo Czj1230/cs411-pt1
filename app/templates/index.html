@@ -3,6 +3,51 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Flask App</h1>
-<p>This is the home page.</p>
+<nav id="top-nav">
+    <button type="button" class="nav-btn">Button 1</button>
+    <button type="button" class="nav-btn">Button 2</button>
+    <button type="button" class="nav-btn">Button 3</button>
+    <button type="button" class="nav-btn">Button 4</button>
+    <button type="button" class="nav-btn">Button 5</button>
+</nav>
+
+<header id="hdr">
+    <video playsinline autoplay muted loop id="bgvid">
+        <!-- The sources will be inserted by JavaScript -->
+    </video>
+    <div class="content-wrap">
+        <h1>Welcome to SteamGame Webpage</h1>
+    </div>
+</header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      var videoList = [
+        '/static/2214_1699423372.mp4',
+        '/static/2258_1699574735.mp4',
+        '/static/hero-c35bd03ceaa5f919e98b20c905044a3d.mp4',
+        '/static/2259_1699574937.mp4'
+        // ... add as many paths as you have videos
+      ];
+  
+      var videoElement = document.getElementById('bgvid');
+      var sourceElement = document.createElement('source');
+  
+      // Select a random video from the list
+      var randomVideoPath = videoList[Math.floor(Math.random() * videoList.length)];
+      sourceElement.setAttribute('src', randomVideoPath);
+      sourceElement.setAttribute('type', 'video/mp4');
+  
+      videoElement.appendChild(sourceElement);
+  
+      // Attempt to play the video
+      videoElement.play().catch(error => {
+        console.error("Video play failed:", error);
+        // Handle the failure to play the video as needed
+      });
+    });
+  </script>
+
+
+
 {% endblock %}
