@@ -4,12 +4,9 @@
 
 {% block body %}
 <nav id="top-nav">
-    <button type="button" class="nav-btn">Button 1</button>
-    <button type="button" class="nav-btn">Button 2</button>
-    <button type="button" class="nav-btn">Button 3</button>
-    <button type="button" class="nav-btn">Button 4</button>
-    <button type="button" class="nav-btn">Button 5</button>
+  <button onclick="location.href='{{ url_for('about') }}';">About</button>
 </nav>
+
 
 <header id="hdr">
     <video playsinline autoplay muted loop id="bgvid">

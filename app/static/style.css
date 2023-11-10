@@ -15,7 +15,7 @@ body {
     /* Ensure the video doesn't exceed the header boundaries */
     color: white;
     /* Set text color to white for contrast */
-    height: 700px;
+    height: 1200px;
     /* Set the height of the header */
     display: flex;
     align-items: center;
@@ -106,4 +106,48 @@ body {
 .nav-btn:hover {
     background-color: #777;
     /* Lighter background on hover */
+}
+
+#top-nav button {
+    font-size: 20px;
+    /* Increase font size */
+    padding: 15px 30px;
+    /* Increase padding to make the button taller and wider */
+    background-color: #f2f2f2;
+    /* Background color of the button */
+    border: none;
+    /* Removes the border */
+    border-radius: 5px;
+    /* Optional: Rounds the corners of the button */
+    cursor: pointer;
+    /* Changes the mouse cursor to a pointer on hover */
+    transition: background-color 0.3s;
+    /* Smooth transition for background color on hover */
+}
+
+#top-nav button:hover {
+    background-color: #ddd;
+    /* Slightly darker background color on hover */
+}
+
+#top-nav button {
+    font-size: 20px;
+    padding: 15px 30px;
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0;
+    /* Button is completely transparent by default */
+    transition: opacity 0.5s ease;
+    /* Transition effect for the opacity change */
+    pointer-events: none;
+    /* Prevents the button from being clickable when it's invisible */
+}
+
+#top-nav:hover button {
+    opacity: 1;
+    /* Button becomes fully visible when nav is hovered */
+    pointer-events: auto;
+    /* Allows the button to be clickable when it's visible */
 }
