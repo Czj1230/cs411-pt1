@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, jsonify
 from exts import db
 from sqlalchemy import text
+from flask import request
 
 game_bp = Blueprint('games', __name__)
 
@@ -8,6 +9,8 @@ game_bp = Blueprint('games', __name__)
 def getGame():
     print("getGame")
     return {"sdf":"hsdf"}
+
+
 
 @game_bp.route("/db")
 def dbTest():
@@ -22,3 +25,4 @@ def dbTest():
         db.session.rollback()  # Rollback in case of error
         print(f"An error occurred: {e}")
     return {"su":"ce"}
+

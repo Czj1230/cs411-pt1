@@ -123,3 +123,60 @@ parent-selector {
     opacity: 1;
     pointer-events: auto;
 }
+
+#searchBox {
+    width: 80%;
+    padding: 15px;
+    margin: 15px 0;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    /* Rounded edges */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    /* Inner shadow for depth */
+}
+
+#searchBox:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+    /* Glow effect on focus */
+}
+
+#searchResults div {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    margin: 5px 0;
+}
+
+.search-engine {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    /* Adjust the height as needed */
+}
+
+.search-container {
+    text-align: center;
+    width: 50%;
+    /* Adjust width as needed */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Semi-transparent background */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+.filters select,
+.filters input[type="number"] {
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
