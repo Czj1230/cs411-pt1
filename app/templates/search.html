@@ -6,16 +6,57 @@
 
 
 <main>
-    <section class="featured-games">
-        <h2>Featured Games</h2>
-    </section>
 
-    <section class="game-categories">
-        <h2>Categories</h2>
-        <div class="category-list">
+    <section class="search-engine">
+        <div class="search-container">
+            <h2>Game Search</h2>
+            <input type="text" id="searchBox" placeholder="Search for games...">
+
+            <div class="filters">
+                <select id="categoryFilter">
+                    <option value="">Select Category</option>
+                    <option value="action">Action</option>
+                    <option value="adventure">Adventure</option>
+                    <option value="RPG">RPG</option>
+                    <option value="shooting">Shooting</option>
+                    <option value="survival">Survival</option>
+                    <option value="horror">Horror</option>
+                    <option value="simulation ">Simulation</option>
+                    <option value="casual">Casual</option>
+                    <option value="strategy">Strategy</option>
+                    <option value="indie">Indie</option>
+                </select>
+
+                <select id="countryFilter">
+                    <option value="">Select Country</option>
+                    <option value="USA">USA</option>
+                    <option value="Japan">Japan</option>
+                    <option value="China">China</option>
+                    <option value="UK">UK</option>
+                    <option value="Korea">Korea</option>
+                </select>
+
+                <select id="systemFilter">
+                    <option value="">Select System</option>
+                    <option value="Windows">Windows</option>
+                    <option value="Mac">Mac</option>
+                    <option value="Both">Both</option>
+                </select>
+
+                <input type="number" id="minPrice" placeholder="Min Price">
+                <input type="number" id="maxPrice" placeholder="Max Price">
+            </div>
+
+            <div id="searchResults"></div>
         </div>
     </section>
 </main>
+
+<script src="static/external.js"></script>
+
+<div class="text-center mt-4">
+    <a href='/' class="btn btn-primary">Home</a>
+</div>
 
 <footer>
     <p>&copy; 2023 SteamGame</p >
