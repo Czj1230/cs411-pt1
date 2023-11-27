@@ -14,6 +14,10 @@ def login():
 def about():
     return render_template('about.html')
 
+@app.route('/search_engine')
+def search():
+    return render_template('search.html')
+
 #within app.route add the html page we are doing changes to
 @app.route('/register')
 # def is normally how we define a function in python

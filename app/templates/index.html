@@ -3,10 +3,6 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<nav id="top-nav">
-  <button onclick="location.href='{{ url_for('about') }}';">About</button>
-  <button onclick="location.href='{{ url_for('search') }}';">Search</button>
-</nav>
 
 
 <header id="hdr">
@@ -17,6 +13,11 @@
         <h1>Welcome to SteamGame Webpage</h1>
     </div>
 </header>
+
+<nav id="top-nav">
+  <button onclick="location.href='{{ url_for('about') }}';">About</button>
+  <button onclick="location.href='{{ url_for('search') }}';">Search</button>
+</nav>
 
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {

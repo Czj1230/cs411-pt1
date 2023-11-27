@@ -98,19 +98,25 @@ parent-selector {
 
 
 #top-nav button:hover {
-    background-color: rgb(9, 184, 149);
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Optional: Change background on hover for a subtle effect */
+    opacity: 1;
+    /* Ensure full visibility on hover */
 }
 
 #top-nav button {
     font-size: 40px;
     padding: 15px 30px;
-    background-color: #f2f2f2;
-    border: none;
+    background-color: transparent;
+    /* Make the background transparent */
+    color: white;
+    /* Change text color for visibility */
+    border: 2px solid white;
+    /* Optional: add a border for visibility */
     border-radius: 20px;
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
+    transition: opacity 0.5s ease, background-color 0.5s ease;
+    /* Transition for opacity and background color */
 }
 
 #top-nav:hover button {
