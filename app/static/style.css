@@ -1,64 +1,77 @@
 body {
     font-family: Arial, sans-serif;
+    position: relative;
 }
 
-.small-image {
-    width: 400px;
-    /* or any other size */
-    height: auto;
-    /* to maintain the aspect ratio */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
 
+
+/* for the display video */
 #hdr {
     position: relative;
     overflow: hidden;
-    /* Ensure the video doesn't exceed the header boundaries */
     color: white;
-    /* Set text color to white for contrast */
-    height: 1200px;
-    /* Set the height of the header */
+    height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
-    /* Align the text vertically */
     justify-content: center;
-    /* Center the content horizontally */
+    z-index: -1;
 }
 
+/* for the display video */
 #hdr video#bgvid {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -100;
-    transform: translate(-50%, -50%);
-    background: no-repeat;
-    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
 }
 
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    /* Optional: for better visibility */
+    color: white;
+    /* Optional: for better visibility */
+    padding: 10px 0;
+    /* Add some padding */
+    z-index: -1;
+}
+
+parent-selector {
+    /* Replace with the actual selector of the parent element */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* Full viewport height */
+    text-align: center;
+}
+
+/* .content-wrap Styles */
 .content-wrap {
     font-size: 24px;
-    position: relative;
+    position: fixed;
     z-index: 10;
-    /* Ensure the content is above the video */
+    /* Ensures the content is above the video/background */
     max-width: 960px;
     /* Maximum width of the content */
-    text-align: center;
-    /* Center the text horizontally */
     width: 100%;
-    /* Make sure the div takes up 100% of the header's width */
-}
-
-
-
-.content-wrap {
-    max-width: 960px;
-    /* Adjust the max-width as needed */
+    /* Full width of the parent element */
     margin: 0 auto;
-    /* This centers the content-wrap div if it's not as wide as the header */
 }
+
 
 /* Style for the header background if needed */
 .hdr-bg {
@@ -73,81 +86,34 @@ body {
 }
 
 #top-nav {
-    background-color: #333;
+    background-color: transparent;
     /* Dark background for the navbar */
     color: white;
-    padding: 10px 0;
+    padding: 20px 0;
     /* Padding around the buttons */
     text-align: center;
     /* Center the buttons within the nav element */
 }
 
-.nav-btn {
-    background-color: #555;
-    /* Button background */
-    border: none;
-    /* Remove border */
-    color: white;
-    /* Text color */
-    padding: 10px 20px;
-    /* Padding inside the buttons */
-    margin: 0 5px;
-    /* Space between buttons */
-    text-transform: uppercase;
-    /* Uppercase button text */
-    font-size: 16px;
-    /* Button text size */
-    cursor: pointer;
-    /* Cursor to pointer to indicate it's clickable */
-    transition: background-color 0.3s;
-    /* Smooth background color transition on hover */
-}
 
-.nav-btn:hover {
-    background-color: #777;
-    /* Lighter background on hover */
-}
-
-#top-nav button {
-    font-size: 20px;
-    /* Increase font size */
-    padding: 15px 30px;
-    /* Increase padding to make the button taller and wider */
-    background-color: #f2f2f2;
-    /* Background color of the button */
-    border: none;
-    /* Removes the border */
-    border-radius: 5px;
-    /* Optional: Rounds the corners of the button */
-    cursor: pointer;
-    /* Changes the mouse cursor to a pointer on hover */
-    transition: background-color 0.3s;
-    /* Smooth transition for background color on hover */
-}
 
 #top-nav button:hover {
-    background-color: #ddd;
-    /* Slightly darker background color on hover */
+    background-color: rgb(9, 184, 149);
 }
 
 #top-nav button {
-    font-size: 20px;
+    font-size: 40px;
     padding: 15px 30px;
     background-color: #f2f2f2;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     opacity: 0;
-    /* Button is completely transparent by default */
     transition: opacity 0.5s ease;
-    /* Transition effect for the opacity change */
     pointer-events: none;
-    /* Prevents the button from being clickable when it's invisible */
 }
 
 #top-nav:hover button {
     opacity: 1;
-    /* Button becomes fully visible when nav is hovered */
     pointer-events: auto;
-    /* Allows the button to be clickable when it's visible */
 }

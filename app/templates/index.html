@@ -5,6 +5,7 @@
 {% block body %}
 <nav id="top-nav">
   <button onclick="location.href='{{ url_for('about') }}';">About</button>
+  <button onclick="location.href='{{ url_for('search') }}';">Search</button>
 </nav>
 
 
@@ -20,7 +21,6 @@
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
       var videoList = [
-        '/static/2214_1699423372.mp4',
         '/static/2258_1699574735.mp4',
         '/static/hero-c35bd03ceaa5f919e98b20c905044a3d.mp4',
         '/static/2259_1699574937.mp4'
@@ -45,6 +45,8 @@
     });
   </script>
 
-
+  <footer>
+    <p>&copy; 2023 SteamGame</p >
+</footer>
 
 {% endblock %}
