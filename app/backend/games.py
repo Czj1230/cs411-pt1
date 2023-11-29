@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, jsonify
 from exts import db
 from sqlalchemy import text
+from flask import request
 
 game_bp = Blueprint('games', __name__)
 
@@ -8,6 +9,7 @@ game_bp = Blueprint('games', __name__)
 def getGame():
     print("getGame")
     return {"sdf":"hsdf"}
+
 
 @game_bp.route("/db", methods=['GET'])
 def dbTest():
