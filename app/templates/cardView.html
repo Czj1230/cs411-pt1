@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Carousel</title>
+<style>
+    .carousel {
+      width: 80%;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      margin: 0;
+      padding: 0;
+    }
+    .card {
+      flex: 0 0 100%;
+      box-sizing: border-box;
+      margin: 0;
+      border: none; /* Removed the margin and border to prevent them from showing in the overflow */
+    }
+    .card img {
+      width: 100%;
+      display: block;
+    }
+    .card-content {
+      padding: 10px;
+    }
+    .carousel-indicators {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      z-index: 10;
+    }
+    .indicator {
+      border: none;
+      background-color: rgba(255, 255, 255, 0.5);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    .indicator.active {
+      background-color: #fff;
+    }
+    .arrow {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      z-index: 10;
+    }
+    .arrow.left {
+      left: 10px;
+    }
+    .arrow.right {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="carousel" id="carousel">
+  <div class="carousel-track" id="carouselTrack">
+    <!-- Repeat this block for each card, total of 10 cards -->
+    <div class="card">
+      <img src="http://cdn.akamai.steamstatic.com/steam/apps/10/header.jpg?t=1447887426" alt="Card Image">
+      <div class="card-content">
+        <h3>Counter Strike</h3>
+        <p>Popular game 1</p>
+      </div>
+    </div>
+    <!-- ...other cards -->
+    <div class="card">
+        <img src="http://cdn.akamai.steamstatic.com/steam/apps/20/header.jpg?t=1447350811" alt="Card Image">
+        <div class="card-content">
+          <h3>Counter Strike</h3>
+          <p>Popular game 2</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="http://cdn.akamai.steamstatic.com/steam/apps/30/header.jpg?t=1447350812" alt="Card Image">
+        <div class="card-content">
+          <h3>Counter Strike</h3>
+          <p>Popular game 3</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="http://cdn.akamai.steamstatic.com/steam/apps/40/header.jpg?t=1447350812" alt="Card Image">
+        <div class="card-content">
+          <h3>Counter Strike</h3>
+          <p>Popular game 4</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="http://cdn.akamai.steamstatic.com/steam/apps/50/header.jpg?t=1447350813" alt="Card Image">
+        <div class="card-content">
+          <h3>Counter Strike</h3>
+          <p>Popular game 5</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="http://cdn.akamai.steamstatic.com/steam/apps/10/header.jpg?t=1447887426" alt="Card Image">
+        <div class="card-content">
+          <h3>Counter Strike</h3>
+          <p>Popular game 6</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="http://cdn.akamai.steamstatic.com/steam/apps/60/header.jpg?t=1453942008" alt="Card Image">
+        <div class="card-content">
+          <h3>Counter Strike</h3>
+          <p>Popular game 7</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="http://cdn.akamai.steamstatic.com/steam/apps/70/header.jpg?t=1447890508" alt="Card Image">
+        <div class="card-content">
+          <h3>Counter Strike</h3>
+          <p>Popular game 8</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="http://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1447889920" alt="Card Image">
+        <div class="card-content">
+          <h3>Counter Strike</h3>
+          <p>Popular game 9</p>
+        </div>
+      </div>
+      <button class="arrow left" id="prevArrow">&lt;</button>
+      <button class="arrow right" id="nextArrow">&gt;</button>
+      
+      <div class="carousel-indicators" id="indicators">
+      </div>
+</div>
+
+
+<script>
+    let currentIndex = 0;
+    const cards = document.querySelectorAll('.card');
+    const track = document.getElementById('carouselTrack');
+    const totalCards = cards.length;
+    const switchTime = 3000; // Time in milliseconds
+    const indicatorsContainer = document.getElementById('indicators');
+  
+    // Create indicators
+    for (let i = 0; i < totalCards; i++) {
+      const indicator = document.createElement('button');
+      indicator.classList.add('indicator');
+      if (i === 0) indicator.classList.add('active');
+      indicator.addEventListener('click', () => {
+        currentIndex = i;
+        updateCarousel();
+        resetInterval();
+      });
+      indicatorsContainer.appendChild(indicator);
+    }
+  
+    // Update the carousel position and active indicator
+    function updateCarousel() {
+      const nextTransform = -currentIndex * 100;
+      track.style.transform = `translateX(${nextTransform}%)`;
+      document.querySelectorAll('.indicator').forEach((ind, index) => {
+        ind.classList.toggle('active', index === currentIndex);
+      });
+    }
+  
+    // Set interval for automatic switching
+    let interval = setInterval(nextCard, switchTime);
+  
+    // Switch to the next card
+    function nextCard() {
+      currentIndex = (currentIndex + 1) % totalCards;
+      updateCarousel();
+    }
+  
+    // Attach event listeners to arrows
+    document.getElementById('prevArrow').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+      updateCarousel();
+      resetInterval();
+    });
+    document.getElementById('nextArrow').addEventListener('click', () => {
+      nextCard();
+      resetInterval();
+    });
+  
+    // Reset the interval for automatic switching
+    function resetInterval() {
+      clearInterval(interval);
+      interval = setInterval(nextCard, switchTime);
+    }
+  </script>
+
+</body>
+</html>
