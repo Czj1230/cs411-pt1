@@ -4,47 +4,112 @@
 
 {% block body %}
 
-
-<header id="hdr">
-    <video playsinline autoplay muted loop id="bgvid">
-        <!-- The sources will be inserted by JavaScript -->
-    </video>
-    <div class="content-wrap">
-        <h1>Welcome to SteamGame Webpage</h1>
-    </div>
-</header>
-
 <nav id="top-nav">
   <button onclick="location.href='{{ url_for('about') }}';">About</button>
   <button onclick="location.href='{{ url_for('search') }}';">Search</button>
+  <button onclick="location.href='{{ url_for('search') }}';">Store</button>
 </nav>
 
+
+
+<!-- Container for the image gallery -->
+<div class="container">
+
+  <!-- Full-width images with number text -->
+  <div class="mySlides">
+    <div class="numbertext">1 / 6</div>
+      <img src="/static/LOL.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">2 / 6</div>
+      <img src="/static/dota2.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">3 / 6</div>
+      <img src="/static/trump.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">4 / 6</div>
+      <img src="/static/csgo.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">5 / 6</div>
+      <img src="/static/7days.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">6 / 6</div>
+      <img src="/static/spiderman.webp" style="width:100%">
+  </div>
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+  <!-- Image text -->
+  <div class="caption-container">
+    <p id="caption"></p>
+  </div>
+
+  <!-- Thumbnail images -->
+  <div class="row">
+    <div class="column">
+      <img class="demo cursor" src="/static/LOL.jpg" style="width:100%" onclick="currentSlide(1)" alt="League Of Legend">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/static/dota2.jpg" style="width:100%" onclick="currentSlide(2)" alt="Dota 2">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/static/trump.jpg" style="width:100%" onclick="currentSlide(3)" alt="Trump">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/static/csgo.jpg" style="width:100%" onclick="currentSlide(4)" alt="CSGO">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/static/7days.jpg" style="width:100%" onclick="currentSlide(5)" alt="7 days to die">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="/static/spiderman.webp" style="width:100%" onclick="currentSlide(6)" alt="Spiderman">
+    </div>
+  </div>
+</div>
+
 <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-      var videoList = [
-        '/static/2258_1699574735.mp4',
-        '/static/hero-c35bd03ceaa5f919e98b20c905044a3d.mp4',
-        '/static/2259_1699574937.mp4'
-        // ... add as many paths as you have videos
-      ];
-  
-      var videoElement = document.getElementById('bgvid');
-      var sourceElement = document.createElement('source');
-  
-      // Select a random video from the list
-      var randomVideoPath = videoList[Math.floor(Math.random() * videoList.length)];
-      sourceElement.setAttribute('src', randomVideoPath);
-      sourceElement.setAttribute('type', 'video/mp4');
-  
-      videoElement.appendChild(sourceElement);
-  
-      // Attempt to play the video
-      videoElement.play().catch(error => {
-        console.error("Video play failed:", error);
-        // Handle the failure to play the video as needed
-      });
-    });
-  </script>
+  let slideIndex = 1;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("demo");
+  let captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
 
   <footer>
     <p>&copy; 2023 SteamGame</p >

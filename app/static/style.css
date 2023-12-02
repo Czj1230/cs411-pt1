@@ -1,6 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    position: relative;
 }
 
 html,
@@ -8,32 +7,17 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    position: relative;
 }
 
-
-/* for the display video */
+/* 样式调整：头部 */
 #hdr {
     position: relative;
-    overflow: hidden;
-    color: white;
+    color: rgb(185, 104, 104);
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: -1;
-}
-
-/* for the display video */
-#hdr video#bgvid {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1;
 }
 
 footer {
@@ -41,87 +25,44 @@ footer {
     bottom: 0;
     width: 100%;
     text-align: center;
-    /* Optional: for better visibility */
     color: white;
-    /* Optional: for better visibility */
     padding: 10px 0;
-    /* Add some padding */
-    z-index: -1;
 }
 
-parent-selector {
-    /* Replace with the actual selector of the parent element */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    /* Full viewport height */
-    text-align: center;
-}
-
-/* .content-wrap Styles */
 .content-wrap {
     font-size: 24px;
-    position: fixed;
+    position: relative;
     z-index: 10;
-    /* Ensures the content is above the video/background */
     max-width: 960px;
-    /* Maximum width of the content */
     width: 100%;
-    /* Full width of the parent element */
     margin: 0 auto;
-}
-
-
-/* Style for the header background if needed */
-.hdr-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Background styling goes here */
-    z-index: -1;
-    /* Keeps it behind the content */
 }
 
 #top-nav {
     background-color: transparent;
-    /* Dark background for the navbar */
     color: white;
     padding: 20px 0;
-    /* Padding around the buttons */
     text-align: center;
-    /* Center the buttons within the nav element */
-}
-
-
-
-#top-nav button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    /* Optional: Change background on hover for a subtle effect */
-    opacity: 1;
-    /* Ensure full visibility on hover */
 }
 
 #top-nav button {
-    font-size: 40px;
-    padding: 15px 30px;
+    font-size: 20px;
+    padding: 10px 20px;
     background-color: transparent;
-    /* Make the background transparent */
-    color: white;
-    /* Change text color for visibility */
-    border: 2px solid white;
-    /* Optional: add a border for visibility */
+    color: rgb(155, 15, 15);
+    border: 2px solid rgb(243, 1, 1);
     border-radius: 20px;
     cursor: pointer;
     transition: opacity 0.5s ease, background-color 0.5s ease;
-    /* Transition for opacity and background color */
+    display: inline-block;
+    /* 确保按钮正确显示 */
+    z-index: 10;
+    /* 提升按钮的层级 */
 }
 
-#top-nav:hover button {
+#top-nav button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
     opacity: 1;
-    pointer-events: auto;
 }
 
 #searchBox {
@@ -131,16 +72,13 @@ parent-selector {
     font-size: 18px;
     border: 2px solid #ccc;
     border-radius: 25px;
-    /* Rounded edges */
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    /* Inner shadow for depth */
 }
 
 #searchBox:focus {
     outline: none;
     border-color: #9ecaed;
     box-shadow: 0 0 10px #9ecaed;
-    /* Glow effect on focus */
 }
 
 #searchResults div {
@@ -154,19 +92,15 @@ parent-selector {
     justify-content: center;
     align-items: center;
     height: 60vh;
-    /* Adjust the height as needed */
 }
 
 .search-container {
     text-align: center;
     width: 50%;
-    /* Adjust width as needed */
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
-    /* Semi-transparent background */
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Soft shadow for depth */
 }
 
 .filters {
@@ -179,4 +113,104 @@ parent-selector {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+    position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+    cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #110a0a;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+    text-align: center;
+    background-color: black;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Six columns side by side */
+.column {
+    float: left;
+    width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+    opacity: 0.6;
+    width: 100px;
+    /* 设置缩略图的宽度 */
+    height: 75px;
+    /* 设置缩略图的高度 */
+    object-fit: cover;
+    /* 保持图片比例 */
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
+}
+
+.mySlides img {
+    width: 200px;
+    height: 400px;
+    object-fit: cover;
+    /* 这将帮助保持图片的比例 */
 }
