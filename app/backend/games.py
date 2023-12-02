@@ -11,24 +11,72 @@ def getGame():
     return {"sdf":"hsdf"}
 
 
-@game_bp.route("/db", methods=['GET'])
-def dbTest():
-    print("in db")
-    result = db.session.execute(text("SELECT * FROM review"))
-    response_object = {}
+@game_bp.route('/db', methods=['GET'])
+def search_games():
+    search_term = request.args.get('query', '')
+    category = request.args.get('category', '')
+    country = request.args.get('country', '')
+    system = request.args.get('system', '')
+    min_price = request.args.get('minPrice', 0)
+    max_price = request.args.get('maxPrice', 0)
+    search = "SELECT * FROM game WHERE name LIKE :searchid"
+    if min_price:
+        search += " AND price >= " + min_price + ""
+    if max_price:
+        search += " AND price <= " + max_price + ""
+    
+    search += " LIMIT 3"
+    sql_query = text(search)
+    result = db.session.execute(sql_query, {'searchid': f'{search_term}%'})
+        
+
+    games = []
     for row in result:
-        response_object[row[0]]=row[1]
-    print(response_object)
-    try:
-        db.session.execute(text("UPDATE review SET rating=0 WHERE reviewid=3"))
-        db.session.commit()
-    except Exception as e:
-        db.session.rollback()  # Rollback in case of error
-        print(f"An error occurred: {e}")
-    return response_object
+        
+        gameid = row[0]
+        
+        genre_query = text("SELECT * FROM genre WHERE gameid = :searchid")
+        genre_result = db.session.execute(genre_query, {'searchid': gameid})
+        genres = [genre_row for genre_row in genre_result]
+        genres_list = [item for item in genres[0]]
+        
+        picture_query = text("SELECT * FROM extrainfo WHERE gameid = :searchid")
+        picture_result = db.session.execute(picture_query, {'searchid': gameid})
+        image = [item for item in picture_result]
+        image_list = [item for item in image[0]]
+        print(image_list[5])
+        
+        game = {
+            'gameid': row[0],
+            'name': row[1],
+            'description': row[2],
+            'price': row[6],
+            'Indie': genres_list[1],
+            'Action': genres_list[2],
+            'Adventure': genres_list[3],
+            'Casual': genres_list[4],
+            'Strategy': genres_list[5],
+            'RPG': genres_list[6],
+            'Simulation': genres_list[7],
+            'Earlyaccess': genres_list[8],
+            'Freetoplay': genres_list[9],
+            'Sports': genres_list[10],
+            'Racing': genres_list[11],
+            'Image': image_list[5]
+        }
+        games.append(game)
+
+    return jsonify(games)
 
 @game_bp.route("/db/test/<searchid>", methods=['GET'])
 def dbParaTest(searchid):
-    result = db.session.execute(text("SELECT * FROM game"))
-    return None
+    sql_query = text("SELECT * FROM game WHERE game_id = :searchid")
+
+    result = db.session.execute(sql_query, {'searchid': searchid})
+
+    response_object = {}
+    for row in result:
+        response_object[row[0]] = row[1]
+
+    return jsonify(response_object)
 
