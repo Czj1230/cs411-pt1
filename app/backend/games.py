@@ -32,3 +32,17 @@ def dbParaTest(searchid):
     result = db.session.execute(text("SELECT * FROM game"))
     return None
 
+@game_bp.route("/db/popular_games", methods=['GET'])
+def dbGetPopGames():
+    results = db.session.execute(text("SELECT g.name, g.price, e.headerimage, e.website FROM game g NATURAL JOIN extrainfo e WHERE (website AND headerimage) IS NOT NULL ORDER BY g.recommendationcount DESC LIMIT 10"))
+    games_list = []
+    for game in results:
+        games_dict = {
+            "name": game[0],
+            "price": game[1],
+            "header_image": game[2],
+            "website": game[3]
+        }
+        games_list.append(games_dict)
+    return jsonify(games_list)
+
