@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var games = [
-        { name: 'Game 1', category: 'action', country: 'USA', system: 'Windows', price: 20 },
-        { name: 'Game 2', category: 'adventure', country: 'Japan', system: 'Mac', price: 30 },
-        // ... more games
-    ];
 
     function searchGames() {
         var searchTerm = document.getElementById('searchBox').value;
@@ -13,12 +8,24 @@ document.addEventListener('DOMContentLoaded', function() {
         var minPrice = document.getElementById('minPrice').value;
         var maxPrice = document.getElementById('maxPrice').value;
     
-        var queryURL = '/db?query=' + encodeURIComponent(searchTerm) +
-                       '&category=' + encodeURIComponent(categoryFilter) +
-                       '&country=' + encodeURIComponent(countryFilter) +
-                       '&system=' + encodeURIComponent(systemFilter) +
-                       '&minPrice=' + encodeURIComponent(minPrice) +
-                       '&maxPrice=' + encodeURIComponent(maxPrice);
+        var queryURL = '/db?query=' + encodeURIComponent(searchTerm);
+
+        // Only append the filters to the URL if they have values
+        if (categoryFilter) {
+            queryURL += '&category=' + encodeURIComponent(categoryFilter);
+        }
+        if (countryFilter) {
+            queryURL += '&country=' + encodeURIComponent(countryFilter);
+        }
+        if (systemFilter) {
+            queryURL += '&system=' + encodeURIComponent(systemFilter);
+        }
+        if (minPrice) {
+            queryURL += '&minPrice=' + encodeURIComponent(minPrice);
+        }
+        if (maxPrice) {
+            queryURL += '&maxPrice=' + encodeURIComponent(maxPrice);
+        }
     
         fetch(queryURL)
             .then(response => response.json())
@@ -44,11 +51,49 @@ document.addEventListener('DOMContentLoaded', function() {
         games.forEach(function(game) {
             var gameDiv = document.createElement('div');
             gameDiv.className = 'game-item';
-            gameDiv.innerHTML = '<h3>' + game.name + '</h3>' +
-                                '<p>Category: ' + game.category + '</p>' +
-                                '<p>Country: ' + game.country + '</p>' +
-                                '<p>System: ' + game.system + '</p>' +
+            gameDiv.innerHTML = '<h3>' + game.name + '</h3>';
+            var img = document.createElement('img');
+            img.src = game.Image;
+            img.alt = "Game Image";
+            gameDiv.appendChild(img)
+            gameDiv.innerHTML += '<p>Description: ' + game.description + '</p>' +
                                 '<p>Price: $' + game.price.toFixed(2) + '</p>';
+            gameDiv.innerHTML += '<p>Category: ';
+            if (game.Indie == 'Y') {
+                gameDiv.innerHTML += '<p>Indie' + '</p>';
+            }
+            if (game.Action == 'Y') {
+                gameDiv.innerHTML += '<p>Action' + '</p>';
+            }
+            if (game.Adventure == 'Y') {
+                gameDiv.innerHTML += '<p>Adventure' + '</p>';
+            }
+            if (game.Casual == 'Y') {
+                gameDiv.innerHTML += '<p>Casual' + '</p>';
+            }
+            if (game.Strategy == 'Y') {
+                gameDiv.innerHTML += '<p>Strategy' + '</p>';
+            }
+            if (game.RPG == 'Y') {
+                gameDiv.innerHTML += '<p>RPG' + '</p>';
+            }
+            if (game.Simulation == 'Y') {
+                gameDiv.innerHTML += '<p>Simulation' + '</p>';
+            }
+            if (game.Earlyaccess == 'Y') {
+                gameDiv.innerHTML += '<p>Early-access' + '</p>';
+            }
+            if (game.Freetoplay == 'Y') {
+                gameDiv.innerHTML += '<p>Free-to-play' + '</p>';
+            }
+            if (game.Sports == 'Y') {
+                gameDiv.innerHTML += '<p>Sports' + '</p>';
+            }
+            if (game.Racing == 'Y') {
+                gameDiv.innerHTML += '<p>Racing' + '</p>';
+            }
+            
+            gameDiv.innerHTML += '</p>';
             resultsDiv.appendChild(gameDiv);
         });
     }
