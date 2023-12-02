@@ -3,8 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function searchGames() {
         var searchTerm = document.getElementById('searchBox').value;
         var categoryFilter = document.getElementById('categoryFilter').value;
-        var countryFilter = document.getElementById('countryFilter').value;
-        var systemFilter = document.getElementById('systemFilter').value;
         var minPrice = document.getElementById('minPrice').value;
         var maxPrice = document.getElementById('maxPrice').value;
     
@@ -13,12 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Only append the filters to the URL if they have values
         if (categoryFilter) {
             queryURL += '&category=' + encodeURIComponent(categoryFilter);
-        }
-        if (countryFilter) {
-            queryURL += '&country=' + encodeURIComponent(countryFilter);
-        }
-        if (systemFilter) {
-            queryURL += '&system=' + encodeURIComponent(systemFilter);
         }
         if (minPrice) {
             queryURL += '&minPrice=' + encodeURIComponent(minPrice);
@@ -51,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         games.forEach(function(game) {
             var gameDiv = document.createElement('div');
             gameDiv.className = 'game-item';
+
             gameDiv.innerHTML = '<h3>' + game.name + '</h3>';
             var img = document.createElement('img');
             img.src = game.Image;
@@ -94,14 +87,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             gameDiv.innerHTML += '</p>';
+            var gameLink = document.createElement('a');
+            gameLink.href = '/game/' + game.gameid;
+            gameLink.textContent = game.name;
+            gameDiv.appendChild(gameLink)
             resultsDiv.appendChild(gameDiv);
+            
         });
     }
 
     document.getElementById('searchBox').addEventListener('keyup', searchGames);
     document.getElementById('categoryFilter').addEventListener('change', searchGames);
-    document.getElementById('countryFilter').addEventListener('change', searchGames);
-    document.getElementById('systemFilter').addEventListener('change', searchGames);
     document.getElementById('minPrice').addEventListener('input', searchGames);
     document.getElementById('maxPrice').addEventListener('input', searchGames);
 

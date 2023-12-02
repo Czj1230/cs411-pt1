@@ -82,13 +82,14 @@ footer {
 }
 
 #searchResults {
+    border: 2px solid #ccc;
     width: 100%;
     /* Adjust the width as needed */
     max-height: 600px;
     /* Adjust the height as needed */
     overflow-y: auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(74, 68, 68, 0.4);
     border-radius: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -225,4 +226,27 @@ footer {
     height: 400px;
     object-fit: cover;
     /* 这将帮助保持图片的比例 */
+}
+
+body {
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/798fc33f-5338-426c-95ef-0dce36f68da0/d758mbq-3e6c2f7d-9887-4049-b362-a37dc3f28c70.png/v1/fill/w_1192,h_670,q_70,strp/background_gaming__website__by_fnkk_d758mbq-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9OTAwIiwicGF0aCI6IlwvZlwvNzk4ZmMzM2YtNTMzOC00MjZjLTk1ZWYtMGRjZTM2ZjY4ZGEwXC9kNzU4bWJxLTNlNmMyZjdkLTk4ODctNDA0OS1iMzYyLWEzN2RjM2YyOGM3MC5wbmciLCJ3aWR0aCI6Ijw9MTYwMCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.yP3sGWj_9ppEPyxI6iR7Kg3TAfwh15t32lAFi-spvT8');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #FFFFFF;
+}
+
+#searchResults .result-item {
+    border: 1px solid #ccc;
+    /* Solid border for each box */
+    margin-bottom: 10px;
+    /* Space between each box */
+    padding: 10px;
+    /* Padding inside each box */
+    border-radius: 5px;
+    /* Rounded corners for each box */
+    background-color: #fff;
+    /* White background for each box */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Shadow for 3D effect */
 }

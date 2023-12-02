@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+
+{% block title %}{{ game.name }} - Game Details{% endblock %}
+
+
+{% block body %}
+<main>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <h1>{{ game.name }}</h1>
+    <p>{{ game.description }}</p>
+    <!-- Display other game details -->
+    <img src="{{ game.image }}" alt="{{ game.name }}" style="max-width: 100%; height: auto;">
+    <p></p>
+    {% if game.website and game.website != "None" %}
+        <p>Visit the official website: <a href="{{ game.website }}" target="_blank">{{ game.name }}</a></p>
+    {% endif %}
+
+    {% if game.background %}
+        <img src="{{ game.background }}" alt="{{ game.name }}" style="max-width: 100%; height: auto;">
+    {% endif %}
+    <ul>
+
+    </ul>
+    <!-- Add more details as needed -->
+</main>
+{% endblock %}
