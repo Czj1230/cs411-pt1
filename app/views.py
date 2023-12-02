@@ -31,3 +31,7 @@ def registerV():
 @app.route('/newpage')
 def newpage():
     return render_template('newpage.html')
+
+@app.route('/userlogin')
+def userlogin():
+    return render_template('userlogin.html')
