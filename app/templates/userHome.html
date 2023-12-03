@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Games</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">My Favorite Games</h1>
+        <div class="row">
+            {% for game in games %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ game.title }}</h5>
+                        <p class="card-text">{{ game.description }}</p>
+                        <!-- Rating Form -->
+                        <form action="/userHome/submit_review" method="post">
+                            <input type="hidden" name="game_id" value="{{ game.id }}">
+                            <div>Ratings
+                                <select name="rating" class="width:{5px}">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            
+                            <input type="text" name="review" placeholder="Write comment">
+                            <button type="submit">Submit Review</button>
+                        </form>
+
+                        <!-- Review Form
+                        <form action="/write_review" method="post">
+                            <input type="hidden" name="game_id" value="{{ game.id }}">
+                            <input type="text" name="review" placeholder="Write a review">
+                            <button type="submit">Submit Review</button>
+                        </form> -->
+
+                        <!-- Delete Form -->
+                        <form action="/delete_game/{{ game.id }}" method="post">
+                            <button type="submit">Delete Game</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- ... (scripts remain the same) -->
+</body>
+</html>

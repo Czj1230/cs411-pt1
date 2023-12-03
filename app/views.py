@@ -31,3 +31,10 @@ def registerV():
 @app.route('/newpage')
 def newpage():
     return render_template('newpage.html')
+
+from .backend.userHome import get_favorite_games
+@app.route('/userHome')
+def home():
+    games = get_favorite_games(1)  # This function will fetch favorite games
+    return render_template('userHome.html', games=games)
+

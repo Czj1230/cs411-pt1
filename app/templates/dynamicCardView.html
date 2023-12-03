@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Carousel Component</title>
+<style>
+  .carousel-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  }
+  .carousel {
+    display: flex;
+    overflow: hidden;
+  }
+  .card {
+    flex: none;
+    width: 100%;
+    position: relative;
+  }
+  .card img {
+    width: 100%;
+    display: block;
+  }
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 2;
+  }
+  .arrow.left {
+    left: 10px;
+  }
+  .arrow.right {
+    right: 10px;
+  }
+  .indicator-container {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+  .indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .indicator.active {
+    background-color: #717171;
+  }
+</style>
+</head>
+<body>
+
+<div class="carousel-container">
+  <div class="carousel" id="carousel"></div>
+  <button class="arrow left" onclick="moveSlide(-1)">&#10094;</button>
+  <button class="arrow right" onclick="moveSlide(1)">&#10095;</button>
+  <div class="indicator-container" id="indicatorContainer"></div>
+</div>
+
+<script>
+  let currentSlide = 0;
+  let slideInterval;
+  const carousel = document.getElementById('carousel');
+  const indicatorContainer = document.getElementById('indicatorContainer');
+
+  // Placeholder for your backend data fetching
+  async function fetchCarouselData() {
+    // Replace with your actual backend API endpoint
+    const response = await fetch('https://yourbackend.com/api/carousel');
+    return response.json();
+  }
+
+  // Initialize the carousel with data from the backend
+  async function initializeCarousel() {
+    const data = await fetchCarouselData();
+    populateCarousel(data);
+    startSlideShow();
+  }
+
+  // Populate carousel with cards and indicators
+  function populateCarousel(data) {
+    carousel.innerHTML = ''; // Clear existing content
+    indicatorContainer.innerHTML = '';
+
+    data.forEach((item, index) => {
+      // Create card
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<img src="${item.imageUrl}" alt="Slide ${index + 1}">`;
+      carousel.appendChild(card);
+
+      // Create indicator
+      const indicator = document.createElement('span');
+      indicator.className = 'indicator' + (index === 0 ? ' active' : '');
+      indicator.onclick = () => selectSlide(index);
+      indicatorContainer.appendChild(indicator);
+    });
+  }
+
+  // Move to the next or previous slide
+  function moveSlide(direction) {
+    currentSlide = (currentSlide + direction + carousel.children.length) % carousel.children.length;
+    selectSlide(currentSlide);
+    restartSlideShow();
+  }
+
+  // Select a specific slide
+  function selectSlide(index) {
+    currentSlide = index;
+    const offset = -index * 100; // Assuming 100% width per slide
+    carousel.style.transform = `translateX(${offset}%)`;
+    updateIndicators();
+  }
+
+  // Update the active indicator
+  function updateIndicators() {
+    document.querySelectorAll('.indicator').forEach((indicator, index) => {
+      indicator.className = 'indicator' + (index === currentSlide ? ' active' : '');
+    });
+  }
+
+  // Start the slideshow
+  function startSlideShow() {
+    slideInterval = setInterval(() => moveSlide(1), 3000); // Move to the next slide every 3 seconds
+  }
+
+  // Restart the slideshow
+  function restartSlideShow() {
+    clearInterval(slideInterval);
+    startSlideShow();
+  }
+
+  // Start the carousel when the page loads
+  window.onload = initializeCarousel;
+</script>
+
+</body>
+</html>
