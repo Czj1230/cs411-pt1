@@ -15,16 +15,30 @@ def getGame():
 def search_games():
     search_term = request.args.get('query', '')
     category = request.args.get('category', '')
-    country = request.args.get('country', '')
-    system = request.args.get('system', '')
     min_price = request.args.get('minPrice', 0)
     max_price = request.args.get('maxPrice', 0)
-    search = "SELECT * FROM game WHERE name LIKE :searchid"
+    search = "SELECT * FROM game NATURAL JOIN genre WHERE name LIKE :searchid"
+    
+    if category:
+        if category == "action":
+            search += " AND genreisaction = 'Y'"
+        elif category == "adventure":
+            search += " AND genreisadventure = 'Y'"
+        elif category == "RPG":
+            search += " AND genreisrpg = 'Y'"
+        elif category == "simulation":
+            search += " AND genreissimulation = 'Y'"
+        elif category == "casual":
+            search += " AND genreiscasual = 'Y'"
+        elif category == "strategy":
+            search += " AND genreisstrategy = 'Y'"
+        elif category == "indie":
+            search += " AND genreisindie = 'Y'"
     if min_price:
         search += " AND price >= " + min_price + ""
     if max_price:
         search += " AND price <= " + max_price + ""
-    
+        
     search += " LIMIT 3"
     sql_query = text(search)
     result = db.session.execute(sql_query, {'searchid': f'{search_term}%'})
@@ -39,12 +53,12 @@ def search_games():
         genre_result = db.session.execute(genre_query, {'searchid': gameid})
         genres = [genre_row for genre_row in genre_result]
         genres_list = [item for item in genres[0]]
+            
         
         picture_query = text("SELECT * FROM extrainfo WHERE gameid = :searchid")
         picture_result = db.session.execute(picture_query, {'searchid': gameid})
         image = [item for item in picture_result]
         image_list = [item for item in image[0]]
-        print(image_list[5])
         
         game = {
             'gameid': row[0],
@@ -67,6 +81,33 @@ def search_games():
         games.append(game)
 
     return jsonify(games)
+
+@game_bp.route('/game/<int:game_id>')
+def game_detail(game_id):
+    # Fetch game details from the database using the game_id
+    # ...
+    game_query = text("SELECT * FROM game WHERE gameid = :game_id")
+    game_result = db.session.execute(game_query, {'game_id': game_id}).fetchone()
+    if game_result is None:
+        # Handle the case where no game is found
+        return "Game not found", 404
+    picture_query = text("SELECT * FROM extrainfo WHERE gameid = :searchid")
+    picture_result = db.session.execute(picture_query, {'searchid': game_id})
+    image = [item for item in picture_result]
+    image_list = [item for item in image[0]]
+    
+    game = {
+        'gameid': game_result[0],
+        'name': game_result[1],
+        'description': game_result[2],
+        'image': image_list[5],
+        'website': image_list[4],
+        'background': image_list[6]
+        # ... other fields ...
+    }
+
+    # Render the template with game details
+    return render_template('detail.html', game=game)
 
 @game_bp.route("/db/test/<searchid>", methods=['GET'])
 def dbParaTest(searchid):
