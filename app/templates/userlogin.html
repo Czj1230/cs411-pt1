@@ -3,54 +3,27 @@
 {% block title %} UserLogin {% endblock %}
 
 {% block body %}
-
-
 <main>
     <div class="container mt-5">
-        <h1 class="text-center">Sign in</h1>
+        <form action= "/login" method= "POST">
+            <div class="form-group">
+                <label for="username"><b>Username</b></label>
+                <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+             </div>
+        
+            <div class="form-group">
+                <label for="password"><b>Password</b></label>
+                <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
+            </div>
+        
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
     </div>
-
-    <div class="container mt-5">
-        <div class="form-group">
-            <label for="uname"><b>Username</b></label>
-            <input type="text" class="form-control" placeholder="Enter Username" name="uname" required>
-        </div>
-      
-        <div class="form-group">
-            <label for="psw"><b>Password</b></label>
-            <input type="password" class="form-control" placeholder="Enter Password" name="psw" required>
-        </div>
-      
-        <div class="form-group">
-            <button onclick="location.href='{{  }}';">LOGIN</button>
-        </div>
-
-        <div class="form-group">
-            <button onclick="location.href='{{  }}';">SIGN UP</button>
-        </div>
-    </div>
-
-    <button id="myBtn">SIGN UP</button>
-
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p>Some text in the Signup Modal..</p>
-          <!-- Your signup form goes here -->
-          <form action="/path/to/your/signup/handler" method="post">
-            <!-- Form fields -->
-            <input type="text" placeholder="Username" name="username" required>
-            <input type="password" placeholder="Password" name="password" required>
-            <!-- Submit button -->
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-      
-      </div>
-    
 </main>
-
-
 {% endblock %}
+
+        <!-- <div class="form-group">
+            <button type="submit" class="btn btn-primary">Sign up</button>
+        </div> -->
