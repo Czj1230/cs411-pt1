@@ -134,4 +134,3 @@ def dbGetPopGames():
         }
         games_list.append(games_dict)
     return jsonify(games_list)
-

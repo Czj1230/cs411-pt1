@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %} UserLogin {% endblock %}
+
+{% block body %}
+<main>
+    <div class="container mt-5">
+        <form action= "/login" method= "POST">
+            <div class="form-group">
+                <label for="username"><b>Username</b></label>
+                <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+             </div>
+        
+            <div class="form-group">
+                <label for="password"><b>Password</b></label>
+                <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
+            </div>
+        
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}
+
+        <!-- <div class="form-group">
+            <button type="submit" class="btn btn-primary">Sign up</button>
+        </div> -->
