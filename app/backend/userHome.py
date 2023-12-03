@@ -36,9 +36,12 @@ def rate_game():
     print(request.form.get('review'))
     sql = text("INSERT INTO review(rating, comment) VALUES(" + str(request.form.get('rating')) + ", \"" + str(request.form.get('review')) + "\")")
     print(sql)
-    result = db.session.execute(sql).fetchone()
-    
-    print(result)
+    result = db.session.execute(sql)
+    last_insert_id = result.lastrowid # Get the last insert ID
+    print(last_insert_id)
+    sql2 = text("INSERT INTO include VALUES("+str(last_insert_id)+","+str(request.form.get('game_id')+")"))
+    print(sql2)
+    db.session.execute(sql2)
     db.session.commit()
     return {"haha":"lalal"}
     # return redirect(url_for('home'))
