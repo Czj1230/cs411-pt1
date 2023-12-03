@@ -4,11 +4,20 @@
 
 {% block body %}
 
-<nav id="top-nav">
-  <button onclick="location.href='{{ url_for('about') }}';">About</button>
-  <button onclick="location.href='{{ url_for('search') }}';">Search</button>
-  <button onclick="location.href='{{ url_for('search') }}';">Store</button>
-  <button onclick="location.href='{{ url_for('userlogin') }}';">Login</button>
+<nav id="top-nav" style="display: flex; justify-content: space-between; align-items:flex-start;">
+  <div style="display: flex; justify-content: center; flex-grow: 1;">
+    <button onclick="location.href='{{ url_for('about') }}';" style="margin-right: 10px; width: 120px;">About</button>
+    <button onclick="location.href='{{ url_for('search') }}';" style="margin-right: 10px; width: 120px;">Search</button>
+    <!-- <button onclick="location.href='{{ url_for('search') }}';">Store</button> -->
+    <button onclick="location.href='{{ url_for('home', user_id=user_id ) }}';" style="margin-right: 10px; width: 120px;">Home</button>
+  </div>
+
+  {% if user_name %}
+    <div id="user-id" class="logged" style="margin-left: auto;">Hi! {{ user_name }}</div>
+  {% else %}
+    <button class="login_button" onclick="location.href='{{ url_for('userlogin') }}';" style="margin-left: auto;">Login</button>
+  {% endif %}
+  
 </nav>
 
 
@@ -130,35 +139,40 @@
 
 <script>
   let slideIndex = 1;
-showSlides(slideIndex);
+  showSlides(slideIndex);
 
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("demo");
-  let captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
   }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
+
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
   }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
+
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("demo");
+    let captionText = document.getElementById("caption");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+    captionText.innerHTML = dots[slideIndex-1].alt;
+  }
+  window.onload = function() {
+      {% if show_alert %}
+          alert("Please Login First");
+      {% endif %}
+  };
 </script>
 
 

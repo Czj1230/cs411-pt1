@@ -3,27 +3,143 @@
 {% block title %} UserLogin {% endblock %}
 
 {% block body %}
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
 <main>
-    <div class="container mt-5">
-        <form action= "/login" method= "POST">
-            <div class="form-group">
-                <label for="username"><b>Username</b></label>
-                <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
-             </div>
+    <div class="container mt-5" style="display: flex; /* This enables Flexbox */
+    flex-direction: column; /* This arranges children vertically */
+    align-items: center; /* This centers them horizontally in the container */
+    justify-content: space-around;">
+        <div style="width: 300px;  
+        height: 300px; 
+        border: 2px solid #ddd;
+        padding: 20px;   
+        margin: 60px auto; 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box; ">
+            <form action= "/userLogin/login" method= "POST">
+                <div class="form-group">
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+                 </div>
+            
+                <div class="form-group">
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
+                </div>
+            
+                <div class="form-group" style="display: flex; align-items: center; justify-content: center;">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
         
-            <div class="form-group">
-                <label for="password"><b>Password</b></label>
-                <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
-            </div>
+        <div>
+            <button id="signup-btn" style="align-items: center;">Sign Up?</button>
+        </div>
         
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>
-        </form>
     </div>
+    
+
+    <!-- The Modal -->
+    <div id="signupModal" class="modal" style="display:none;">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+            <!-- You can add more content here like form fields -->
+            <form action= "/userLogin/login" method= "POST">
+                <div class="form-group">
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+                 </div>
+            
+                <div class="form-group">
+                    <label for="password"><b>Password</b></label>
+                    <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
+                </div>
+            
+                <div class="form-group" style="display: flex; align-items: center;">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("signupModal");
+        
+        // Get the button that opens the modal
+        var btn = document.getElementById("signup-btn");
+        
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        window.onload = function() {
+            {% if show_alert %}
+                alert("No User Found! Sign Up First");
+            {% endif %}
+        };
+    </script>
+        
 </main>
 {% endblock %}
 
-        <!-- <div class="form-group">
-            <button type="submit" class="btn btn-primary">Sign up</button>
-        </div> -->
+        

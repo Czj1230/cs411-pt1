@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request
 from exts import db
 from sqlalchemy import text
-from flask import request
 
 game_bp = Blueprint('games', __name__)
 

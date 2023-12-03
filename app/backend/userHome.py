@@ -8,7 +8,7 @@ userHome_be = Blueprint('userHome', __name__)
 def get_favorite_games(id : int):
     # This should be replaced with your actual logic to fetch games
     # For example, a call to a database or an external API
-    result = db.session.execute(text("SELECT * FROM favorite natural join game WHERE favorite.uid=1"))
+    result = db.session.execute(text("SELECT * FROM favorite natural join game WHERE favorite.uid="+str(id)))
     response_object = []
     
     for row in result:
@@ -22,12 +22,9 @@ def get_favorite_games(id : int):
     return response_object
     
 
-@userHome_be.route('/userHome/')
-def not_decided():
-    return None
 
 
-@userHome_be.route('/userHome/submit_review', methods=['POST'])
+@userHome_be.route('/submit_review', methods=['POST'])
 def rate_game():
     # Here you would handle the rating logic
     print("Rating received:", request.form)

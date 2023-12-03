@@ -1,10 +1,9 @@
 from app import app
-from flask import render_template
+from flask import render_template, request
 
 @app.route('/')
 def index():
-    print("index")
-    return render_template('index.html')
+    return render_template('index.html', user_id=None)
 
 @app.route('/login')
 def login():
@@ -40,7 +39,12 @@ def userlogin():
 from .backend.userHome import get_favorite_games
 @app.route('/userHome')
 def home():
-    games = get_favorite_games(1)  # This function will fetch favorite games
+    user_id = request.args.get('user_id','-1')
+    # print(user_id)
+    if(user_id== "-1" or user_id==""):
+        # print("==============")
+        return render_template('index.html', show_alert=True)
+    games = get_favorite_games(int(user_id))  # This function will fetch favorite games
     return render_template('userHome.html', games=games)
 
 
