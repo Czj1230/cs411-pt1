@@ -185,12 +185,13 @@ footer {
     top: 0;
 }
 
-/* Container for image text */
 .caption-container {
     text-align: center;
-    background-color: black;
+    background-color: transparent;
     padding: 2px 16px;
     color: white;
+    font-family: ‘Aclonica’;
+    font-size: 22px;
 }
 
 .row:after {
@@ -214,6 +215,7 @@ footer {
     /* 设置缩略图的高度 */
     object-fit: cover;
     /* 保持图片比例 */
+    font-family: ‘Aclonica’;
 }
 
 .active,
