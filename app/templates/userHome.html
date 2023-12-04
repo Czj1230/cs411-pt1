@@ -25,32 +25,43 @@
                         <h5 >{{ game.title }}</h5>
                         <p >{{ game.description }}</p>
                         <!-- Rating Form -->
-                        <form action="/userHome/submit_review" method="post">
-                            <input type="hidden" name="game_id" value="{{ game.id }}">
-                            <div>Ratings
-                                <select name="rating" class="width:{5px}">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            
-                            <input type="text" name="review" placeholder="Write comment">
-                            <button type="submit">Submit Review</button>
-                        </form>
-
-                        <!-- Review Form
+                        <div style="background-color: #f2f2f2; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <form action="/userHome/submit_review" method="post">
+                                <input type="hidden" name="game_id" value="{{ game.id }}">
+                        
+                                <div style="margin-bottom: 10px;">
+                                    <label for="rating" style="display: block; margin-bottom: 5px; color: #4CAF50;">Ratings:</label>
+                                    <select name="rating" id="rating" style="width: 100px; padding: 5px; margin-right: 10px; vertical-align: top;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                        
+                                <div style="margin-bottom: 10px;">
+                                    <textarea name="review" rows="4" style="width: 100%; padding: 5px;" placeholder="Enter your comment here"></textarea>
+                                </div>
+                        
+                                <div>
+                                    <button type="submit" style="padding: 10px 15px; background-color
+                                    : #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">Submit Review</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                       <!-- Review Form
                         <form action="/write_review" method="post">
                             <input type="hidden" name="game_id" value="{{ game.id }}">
                             <input type="text" name="review" placeholder="Write a review">
                             <button type="submit">Submit Review</button>
-                        </form> -->
+                        </form> --> 
 
                         <!-- Delete Form -->
-                        <form action="/delete_game/{{ game.id }}" method="post">
-                            <button type="submit">Delete Game</button>
+                        <form action="/delete_game/{{ game.id }}" method="post" style="margin-top: 10px;">
+                            <button type="submit" style="padding: 15px 15px; background-color
+                            : #ec0f0f; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">Delete Game</button>
                         </form>
                     </div>
                 </div>
