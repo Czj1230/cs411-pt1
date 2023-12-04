@@ -1,5 +1,7 @@
 from app import app
 from flask import render_template, request
+from sqlalchemy import text
+from exts import db
 
 @app.route('/')
 def index():
@@ -41,10 +43,14 @@ from .backend.userHome import get_favorite_games
 def home():
     user_id = request.args.get('user_id','-1')
     # print(user_id)
-    if(user_id== "-1" or user_id==""):
+    pre_sql = text("SELECT * FROM user WHERE uid = :uid")
+    userNameExist = db.session.execute(pre_sql, {'uid': user_id})
+    userNameCnt = userNameExist.fetchall()
+    number_of_rows = len(userNameCnt)
+    if(user_id== "-1" or user_id=="" or number_of_rows==0):
         # print("==============")
         return render_template('index.html', show_alert=True)
     games = get_favorite_games(int(user_id))  # This function will fetch favorite games
-    return render_template('userHome.html', games=games)
+    return render_template('userHome.html', games=games, uid=user_id)
 
 

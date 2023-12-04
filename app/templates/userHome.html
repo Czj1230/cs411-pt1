@@ -26,7 +26,7 @@
                         <p >{{ game.description }}</p>
                         <!-- Rating Form -->
                         <div style="background-color: #f2f2f2; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <form action="/userHome/submit_review" method="post">
+                            <form action="/userHome/submit_review/{{ uid }}" method="post">
                                 <input type="hidden" name="game_id" value="{{ game.id }}">
                         
                                 <div style="margin-bottom: 10px;">

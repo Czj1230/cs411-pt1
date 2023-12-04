@@ -24,20 +24,22 @@ def get_favorite_games(id : int):
 
 
 
-@userHome_be.route('/submit_review', methods=['POST'])
-def rate_game():
+@userHome_be.route('/submit_review/<uid>', methods=['POST'])
+def rate_game(uid):
     # Here you would handle the rating logic
+    print("===========")
+    print(uid)
     print("Rating received:", request.form)
     print(request.form.get('game_id'))
     print(request.form.get('rating'))
     print(request.form.get('review'))
     sql = text("INSERT INTO review(rating, comment) VALUES(" + str(request.form.get('rating')) + ", \"" + str(request.form.get('review')) + "\")")
-    print(sql)
+    # print(sql)
     result = db.session.execute(sql)
     last_insert_id = result.lastrowid # Get the last insert ID
-    print(last_insert_id)
+    # print(last_insert_id)
     sql2 = text("INSERT INTO include VALUES("+str(last_insert_id)+","+str(request.form.get('game_id')+")"))
-    print(sql2)
+    # print(sql2)
     db.session.execute(sql2)
     db.session.commit()
     return {"haha":"lalal"}
