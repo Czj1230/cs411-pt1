@@ -88,7 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             gameDiv.innerHTML += '</p>';
             var gameLink = document.createElement('a');
-            gameLink.href = '/game/' + game.gameid;
+            gameLink.href = '/game/' + game.gameid + 
+                '?user_name=' + encodeURIComponent(user_name) +
+                '&user_id=' + encodeURIComponent(user_id);
             gameLink.textContent = game.name;
             gameDiv.appendChild(gameLink)
             resultsDiv.appendChild(gameDiv);

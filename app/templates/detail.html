@@ -7,7 +7,17 @@
 {% block body %}
 <main>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <h1>{{ game.name }}</h1>
+    <h1>
+        {{ game.name }}
+        {% if user_name %}
+        <p>
+            <span class="favorite-heart {% if game.favorite_status == 'added' %}selected{% endif %}" id="favoriteHeart">♥</span>
+
+        </p>
+        {% endif %}
+    
+    </h1>
+    
     <p>{{ game.description }}</p>
     <!-- Display other game details -->
     <img src="{{ game.image }}" alt="{{ game.name }}" style="max-width: 100%; height: auto;">
@@ -19,9 +29,48 @@
     {% if game.background %}
         <img src="{{ game.background }}" alt="{{ game.name }}" style="max-width: 100%; height: auto;">
     {% endif %}
+
+
     <ul>
 
     </ul>
     <!-- Add more details as needed -->
 </main>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var heart = document.getElementById('favoriteHeart');
+        if (heart) {
+            heart.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                // Add your code to handle the favorite logic
+                var game_id = {{ game.gameid }};
+                var user_id = {{ user_id }};
+
+                fetch('/update_favorite', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `game_id=${game_id}&user_id=${user_id}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.Added) {
+                        heart.classList.add('selected');
+                        alert('Game added to favorites.');
+                    } else if (data.Deleted) {
+                        heart.classList.remove('selected');
+                        alert('Game removed from favorites.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        }
+    });
+    </script>
 {% endblock %}

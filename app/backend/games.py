@@ -83,6 +83,8 @@ def search_games():
 
 @game_bp.route('/game/<int:game_id>')
 def game_detail(game_id):
+    user_name = request.args.get('user_name', None)
+    user_id = request.args.get('user_id', None)
     # Fetch game details from the database using the game_id
     # ...
     game_query = text("SELECT * FROM game WHERE gameid = :game_id")
@@ -94,6 +96,7 @@ def game_detail(game_id):
     picture_result = db.session.execute(picture_query, {'searchid': game_id})
     image = [item for item in picture_result]
     image_list = [item for item in image[0]]
+    favorite_status = check_favorite_status(user_id, game_id)
     
     game = {
         'gameid': game_result[0],
@@ -101,12 +104,13 @@ def game_detail(game_id):
         'description': game_result[2],
         'image': image_list[5],
         'website': image_list[4],
-        'background': image_list[6]
+        'background': image_list[6],
+        'favorite_status': favorite_status
         # ... other fields ...
     }
 
     # Render the template with game details
-    return render_template('detail.html', game=game)
+    return render_template('detail.html', game=game, user_name=user_name, user_id=user_id)
 
 @game_bp.route("/db/test/<searchid>", methods=['GET'])
 def dbParaTest(searchid):
@@ -133,3 +137,43 @@ def dbGetPopGames():
         }
         games_list.append(games_dict)
     return jsonify(games_list)
+
+
+@game_bp.route('/update_favorite', methods=['POST'])
+def update_favorite():
+    game_id = request.form.get('game_id')
+    user_id = request.form.get('user_id')
+    
+    check = text("SELECT * FROM favorite WHERE uid = :user_id AND gameid = :game_id")
+    check_game = db.session.execute(check, {'user_id': user_id, 'game_id': game_id})
+    gameExist = check_game.fetchall()
+    if len(gameExist) == 0:
+        # Update the favorite status in your database based on the provided data
+        sql = text("INSERT INTO favorite(uid, gameid) VALUES (:user_id, :game_id)")
+        game_add = db.session.execute(sql, {'user_id': user_id, 'game_id': game_id})
+        
+        db.session.commit()
+        response_data = {'Added': True}
+        return jsonify(response_data)
+        
+    else:
+        # Remove the favorite file
+        sql = text("DELETE FROM favorite WHERE uid = :user_id AND gameid = :game_id")
+        game_delete = db.session.execute(sql, {'user_id': user_id, 'game_id': game_id})
+        
+        db.session.commit()
+        response_data = {'Deleted': True}
+        return jsonify(response_data)
+    
+
+def check_favorite_status(user_id, game_id):
+    # Implement this function to check if the game is in the user's favorites
+    # Return 'added' or 'deleted' based on the status
+    # You can use your database queries for this
+    check = text("SELECT * FROM favorite WHERE uid = :user_id AND gameid = :game_id")
+    check_game = db.session.execute(check, {'user_id': user_id, 'game_id': game_id})
+    gameExist = check_game.fetchall()
+    if len(gameExist) == 0:
+        return 'None'
+    return 'added'  # Replace with actual logic
+    

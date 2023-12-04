@@ -75,7 +75,7 @@ footer {
     /* 提升按钮的层级 */
 }
 
-.logged{
+.logged {
     font-size: 20px;
     padding: 10px 20px;
     background-color: transparent;
@@ -277,4 +277,18 @@ body {
     /* White background for each box */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     /* Shadow for 3D effect */
+}
+
+.favorite-heart {
+    color: white;
+    cursor: pointer;
+    font-size: 60px;
+    /* Adjust size as needed */
+    margin-left: 10px;
+    /* Space from the game name */
+}
+
+.favorite-heart.selected {
+    color: red;
+    /* Change this to the desired color for selected (added) games */
 }

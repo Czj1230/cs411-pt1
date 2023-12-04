@@ -7,7 +7,8 @@
 <nav id="top-nav" style="display: flex; justify-content: space-between; align-items:flex-start;">
   <div style="display: flex; justify-content: center; flex-grow: 1;">
     <button onclick="location.href='{{ url_for('about') }}';" style="margin-right: 10px; width: 120px;">About</button>
-    <button onclick="location.href='{{ url_for('search') }}';" style="margin-right: 10px; width: 120px;">Search</button>
+      <button onclick="location.href='{{ url_for('search', user_id=user_id, user_name=user_name) }}';" style="margin-right: 10px; width: 120px;">Search</button>
+
     <!-- <button onclick="location.href='{{ url_for('search') }}';">Store</button> -->
     <button onclick="location.href='{{ url_for('home', user_id=user_id ) }}';" style="margin-right: 10px; width: 120px;">Home</button>
   </div>

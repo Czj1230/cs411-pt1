@@ -15,7 +15,9 @@ def about():
 
 @app.route('/search_engine')
 def search():
-    return render_template('search.html')
+    user_name = request.args.get('user_name','-1')
+    user_id = request.args.get('user_id','-1')
+    return render_template('search.html', user_name = user_name, user_id = user_id)
 
 #within app.route add the html page we are doing changes to
 @app.route('/register')
