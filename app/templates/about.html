@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-3 col-sm-6 text-center mb-4">
             <a href="https://www.linkedin.com/in/xiaoqing-yao-71b60324a/" target="_blank">
-                <img src="https://dynamicmedia.livenationinternational.com/m/s/r/6245c8c2-5c90-453b-acfa-509855aaa599.jpg" class="rounded-circle mb-3" alt="Xiaoqing Yao" style="width: 150px; height: 150px;">
+                <img src="/static/Max.jpg" class="rounded-circle mb-3" alt="Xiaoqing Yao" style="width: 150px; height: 150px;">
                 <h3>Xiaoqing Yao</h3>
             </a>
             <p>Backend Developer</p >
@@ -40,10 +40,19 @@
     </div>
 </div>
 
+<script>
+    var user_name = "{{ user_name }}";
+    var user_id = "{{ user_id }}"; 
+</script>
 
 <div class="text-center mt-4">
-    <a href='/' class="btn btn-primary">Home</a>
+    {% if user_id %}
+        <a href='/6?user_id={{ user_id }}&user_name={{ user_name }}' class="btn btn-primary">Home</a>
+    {% else %}
+        <a href='/' class="btn btn-primary">Home</a>
+    {% endif %}
 </div>
+
 
 <footer>
     <p>&copy; 2023 SteamGame</p >

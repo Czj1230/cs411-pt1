@@ -42,7 +42,11 @@
 
 
 <div class="text-center mt-4">
-    <a href='/' class="btn btn-primary">Home</a>
+    {% if user_id %}
+    <a href='/6?user_id={{ user_id }}&user_name={{ user_name }}' class="btn btn-primary">Home</a>
+    {% else %}
+        <a href='/' class="btn btn-primary">Home</a>
+    {% endif %}
 </div>
 
 <footer>
