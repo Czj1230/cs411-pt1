@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, jsonify, Flask, request, redirect,
 from exts import db
 from sqlalchemy import text
 from flask import request
+from datetime import datetime
 
 userHome_be = Blueprint('userHome', __name__)
 
@@ -38,11 +39,19 @@ def rate_game(uid):
     result = db.session.execute(sql)
     last_insert_id = result.lastrowid # Get the last insert ID
     # print(last_insert_id)
-    sql2 = text("INSERT INTO include VALUES("+str(last_insert_id)+","+str(request.form.get('game_id')+")"))
+    curDate = datetime.now().strftime("%Y-%m-%d")
+    sql2 = text("INSERT INTO include VALUES("+str(last_insert_id)+","+str(request.form.get('game_id'))+")")
     # print(sql2)
     db.session.execute(sql2)
+    sql3 = text("INSERT INTO writereview VALUES("+str(last_insert_id)+","+str(uid)+",\""+str(curDate)+"\")")
+    
+    # sql3 = text("INSERT INTO write(reviewid, uid, date) VALUES(:rid, :uid, :date)")
+    # db.session.execute(sql3, {'rid': last_insert_id, 'uid': uid, 'date':curDate})   
+    print("********")
+    # print(sql3)
+    db.session.execute(sql3)
     db.session.commit()
-    return {"haha":"lalal"}
+    return redirect(url_for('home', user_id=uid))
     # return redirect(url_for('home'))
 
 # @userHome_be.route('/write_review', methods=['POST'])
@@ -51,9 +60,13 @@ def rate_game(uid):
 #     print("Review received:", request.form)
 #     return redirect(url_for('home'))
 
-@userHome_be.route('/delete_game/<int:game_id>', methods=['POST'])
-def delete_game(game_id):
+@userHome_be.route('/delete_game', methods=['POST'])
+def delete_game():
     # Here you would handle the deletion logic
-    global games
-    games = [game for game in games if game['id'] != game_id]
-    return redirect(url_for('home'))
+    game_id = request.args.get('game_id')
+    user_id = request.args.get('user_id')
+    sql = text("DELETE FROM favorite WHERE uid = :user_id AND gameid = :game_id")
+    db.session.execute(sql, {'user_id': user_id, 'game_id': game_id})
+    db.session.commit()
+
+    return redirect(url_for('home', user_id=user_id))
