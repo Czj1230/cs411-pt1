@@ -39,6 +39,16 @@
         <img src="{{ game.background }}" alt="{{ game.name }}" style="max-width: 100%; height: auto;">
     {% endif %}
 
+    <p style="color: black; background-color: lightgray; padding: 10px;">Reviews:</p>
+    {% if game.reviews %}
+        {% for review in game.reviews %}
+            <div class="review">
+                <p><span style="color: black; font-size: larger; background-color: lightgray; padding: 10px;"> User {{ review[0] }} posted: {{ review[1] }} on {{ review[2] }} </span></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 

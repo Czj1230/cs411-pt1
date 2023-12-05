@@ -96,12 +96,17 @@ def game_detail(game_id):
     rating = text("SELECT * FROM GameAverageRatings WHERE gameid = :game_id")
     rating_result = db.session.execute(rating, {'game_id': game_id}).fetchone()
     
+    review = text("SELECT uid, comment, date FROM review NATURAL JOIN include JOIN writereview ON (writereview.reviewid = include.reviewid) WHERE gameid = :game_id")
+    review_result = db.session.execute(review, {'game_id': game_id}).fetchall()
+    reviews = [item for item in review_result]
+    print(reviews)
     
     picture_query = text("SELECT * FROM extrainfo WHERE gameid = :searchid")
     picture_result = db.session.execute(picture_query, {'searchid': game_id})
     image = [item for item in picture_result]
     image_list = [item for item in image[0]]
     favorite_status = check_favorite_status(user_id, game_id)
+    
     
     game = {
         'gameid': game_result[0],
@@ -111,7 +116,8 @@ def game_detail(game_id):
         'website': image_list[4],
         'background': image_list[6],
         'favorite_status': favorite_status,
-        'avg_rating': rating_result[1]
+        'avg_rating': rating_result[1],
+        'reviews': reviews
         # ... other fields ...
     }
 
