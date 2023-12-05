@@ -51,7 +51,12 @@ def rate_game(uid):
     # print(sql3)
     db.session.execute(sql3)
     db.session.commit()
-    return redirect(url_for('home', user_id=uid))
+    sql4 = text("SELECT username FROM user WHERE uid="+str(uid))
+    result = db.session.execute(sql4)
+    user_name = ""
+    for row in result:
+        user_name = row[0]
+    return redirect(url_for('home', user_id=uid, user_name = user_name))
     # return redirect(url_for('home'))
 
 # @userHome_be.route('/write_review', methods=['POST'])
@@ -65,8 +70,15 @@ def delete_game():
     # Here you would handle the deletion logic
     game_id = request.args.get('game_id')
     user_id = request.args.get('user_id')
+    print("==========")
+    print(user_id)
     sql = text("DELETE FROM favorite WHERE uid = :user_id AND gameid = :game_id")
     db.session.execute(sql, {'user_id': user_id, 'game_id': game_id})
     db.session.commit()
-
-    return redirect(url_for('home', user_id=user_id))
+    sql2 = text("SELECT username FROM user WHERE uid="+str(user_id))
+    result = db.session.execute(sql2)
+    user_name = ""
+    for row in result:
+        user_name = row[0]
+    print(user_name)
+    return redirect(url_for('home', user_id=user_id, user_name = user_name))
