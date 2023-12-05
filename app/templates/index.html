@@ -5,16 +5,18 @@
 {% block body %}
 
 <nav id="top-nav" style="display: flex; justify-content: space-between; align-items:flex-start;">
-  <div style="display: flex; justify-content: center; flex-grow: 1;">
-    <button onclick="location.href='{{ url_for('about') }}';" style="margin-right: 10px; width: 120px;">About</button>
-      <button onclick="location.href='{{ url_for('search', user_id=user_id, user_name=user_name) }}';" style="margin-right: 10px; width: 120px;">Search</button>
-
-    <!-- <button onclick="location.href='{{ url_for('search') }}';">Store</button> -->
-    <button onclick="location.href='{{ url_for('home', user_id=user_id ) }}';" style="margin-right: 10px; width: 120px;">Home</button>
+  <div style="display: flex; align-items: center;"> <!-- Added a container for logo and buttons -->
+    <img src="/static/logo.png" alt="SteamGame Logo" style="width: 50px; height: 50px; margin-right: 10px;"> <!-- Replace 'logo.png' with the actual path to your logo image -->
+    <button onclick="location.href='{{ url_for('about', user_id=user_id, user_name=user_name ) }}';" style="margin-right: 10px; width: 120px;">About</button>
+    <button onclick="location.href='{{ url_for('search', user_id=user_id, user_name=user_name ) }}';" style="margin-right: 10px; width: 120px;">Search</button>
+    <button onclick="location.href='{{ url_for('home', user_id=user_id, user_name=user_name ) }}';" style="margin-right: 10px; width: 120px;">Home</button>
   </div>
 
   {% if user_name %}
-    <div id="user-id" class="logged" style="margin-left: auto;">Hi! {{ user_name }}</div>
+  <div id="user-id" class="logged" style="margin-left: auto;">
+    Hi! {{ user_name }}
+    <a href="/logout" class="logout_button">Logout</a>
+  </div>
   {% else %}
     <button class="login_button" onclick="location.href='{{ url_for('userlogin') }}';" style="margin-left: auto;">Login</button>
   {% endif %}
@@ -29,7 +31,7 @@
   <!-- Full-width images with number text -->
   <div class="mySlides">
     <div class="numbertext">1 / 12</div>
-      <img src="https://transyrambler.com/wp-content/uploads/2023/11/league-of-legends-pc-game-cover-696x392.jpg" style="width:100%">
+      <img src="https://steamuserimages-a.akamaihd.net/ugc/2058741574591787153/A475D9F29328A27B8B3CF191C443B615F74E2C07/" style="width:100%">
   </div>
 
   <div class="mySlides">
@@ -100,7 +102,7 @@
   <!-- Thumbnail images -->
   <div class="row">
     <div class="column">
-      <img class="demo cursor" src="/static/LOL.jpg" style="width:100%" onclick="currentSlide(1)" alt="League Of Legend">
+      <img class="demo cursor" src="https://steamuserimages-a.akamaihd.net/ugc/2058741574591783997/18D38727114CBA4A523A4CE5CB42718E5F2EFB98/" style="width:100%" onclick="currentSlide(1)" alt="League Of Legend">
     </div>
     <div class="column">
       <img class="demo cursor" src="/static/dota2.jpg" style="width:100%" onclick="currentSlide(2)" alt="Dota 2">

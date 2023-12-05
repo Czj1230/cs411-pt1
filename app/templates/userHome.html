@@ -71,4 +71,22 @@
     </div>
     <!-- ... (scripts remain the same) -->
 
+    <script>
+        var user_name = "{{ user_name }}";
+        var user_id = "{{ user_id }}"; 
+    </script>
+
+    <div class="text-center mt-4">
+        {% if user_id %}
+        <a href='/6?user_id={{ user_id }}&user_name={{ user_name }}' class="btn btn-primary">Home</a>
+        {% else %}
+            <a href='/' class="btn btn-primary">Home</a>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2023 SteamGame</p >
+    </footer>
+    
+
 {% endblock %}
