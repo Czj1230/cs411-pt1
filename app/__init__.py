@@ -46,7 +46,6 @@ def create_trigger():
 
 def create_stored_procedure():
     stored_procedure_sql = text("""
-        DELIMITER //
         CREATE PROCEDURE IF NOT EXISTS AverageGameRatings()
         BEGIN
             DECLARE done INT DEFAULT 0;
@@ -68,8 +67,8 @@ def create_stored_procedure():
                 FETCH gameCursor INTO currGameId;
 
                 IF NOT done THEN
-                    INSERT INTO GameAverageRatings(gameid, avgRating)
-                    SELECT G.gameid, AVG(R.rating) FROM review R NATURAL JOIN game G
+                    INSERT INTO GameAverageRatings
+                    SELECT G.gameid, AVG(R.rating) FROM review R NATURAL JOIN include G
                     WHERE G.gameid = currGameId 
                     GROUP BY G.gameid;
                 END IF;
@@ -77,9 +76,17 @@ def create_stored_procedure():
 
             CLOSE gameCursor;
 
-        END //
-        DELIMITER ;
+            INSERT INTO GameAverageRatings
+            SELECT gameid, -1 FROM game where gameid NOT IN (select gameid from include);
+            
+        END;
     """)
+    db.session.execute(stored_procedure_sql)
+    
+    call_proceduere = text("call AverageGameRatings()")
+    db.session.execute(call_proceduere)
+    db.session.commit()
+
 
 def run_startup_tasks():
     with app.app_context():

@@ -59,7 +59,7 @@
                         </form> --> 
 
                         <!-- Delete Form -->
-                        <form action="/delete_game/{{ game.id }}" method="post" style="margin-top: 10px;">
+                        <form action="/userHome/delete_game?game_id={{ game.id }}&user_id={{ uid }}" method="post" style="margin-top: 10px;">
                             <button type="submit" style="padding: 15px 15px; background-color
                             : #ec0f0f; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">Delete Game</button>
                         </form>
