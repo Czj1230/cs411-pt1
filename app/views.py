@@ -13,7 +13,7 @@ def index():
 def suc():
     user_id = request.args.get('user_id', '-1')
     user_name = request.args.get('user_name', '-1')
-    print(f"user_id: {user_id}, user_name: {user_name}")  # Add this line for debugging
+    # print(f"user_id: {user_id}, user_name: {user_name}")  # Add this line for debugging
     return render_template('index.html', user_id=user_id, user_name=user_name)
 
 @app.route('/login')

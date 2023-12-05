@@ -21,10 +21,8 @@ app.register_blueprint(userlog, url_prefix='/userLogin')
 
 
 def create_trigger():
-    print("HERE!!")
     drop_tri = text("DROP TRIGGER IF EXISTS after_insert_review;")
     db.session.execute(drop_tri)
-    print("drop trigger")
 
     trigger_sql = text("""
         
@@ -41,7 +39,6 @@ def create_trigger():
     """)
     db.session.execute(trigger_sql)
     db.session.commit()
-    print("ADD TRIGGER")
     
 
 def create_stored_procedure():
@@ -100,5 +97,5 @@ run_startup_tasks()
 from app import views
 
 if __name__ == '__main__':
-    print("__init__")
+    # print("__init__")
     app.run(debug=True)

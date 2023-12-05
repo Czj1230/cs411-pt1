@@ -13,7 +13,7 @@ def get_favorite_games(id : int):
     response_object = []
     
     for row in result:
-        print(row)
+        # print(row)
         one_game = {}
         one_game['id']=row[0]
         one_game['title']=row[2]
@@ -28,12 +28,12 @@ def get_favorite_games(id : int):
 @userHome_be.route('/submit_review/<uid>', methods=['POST'])
 def rate_game(uid):
     # Here you would handle the rating logic
-    print("===========")
-    print(uid)
-    print("Rating received:", request.form)
-    print(request.form.get('game_id'))
-    print(request.form.get('rating'))
-    print(request.form.get('review'))
+    # print("===========")
+    # print(uid)
+    # print("Rating received:", request.form)
+    # print(request.form.get('game_id'))
+    # print(request.form.get('rating'))
+    # print(request.form.get('review'))
     sql = text("INSERT INTO review(rating, comment) VALUES(" + str(request.form.get('rating')) + ", \"" + str(request.form.get('review')) + "\")")
     # print(sql)
     result = db.session.execute(sql)
@@ -47,7 +47,7 @@ def rate_game(uid):
     
     # sql3 = text("INSERT INTO write(reviewid, uid, date) VALUES(:rid, :uid, :date)")
     # db.session.execute(sql3, {'rid': last_insert_id, 'uid': uid, 'date':curDate})   
-    print("********")
+    # print("********")
     # print(sql3)
     db.session.execute(sql3)
     db.session.commit()
@@ -70,8 +70,8 @@ def delete_game():
     # Here you would handle the deletion logic
     game_id = request.args.get('game_id')
     user_id = request.args.get('user_id')
-    print("==========")
-    print(user_id)
+    # print("==========")
+    # print(user_id)
     sql = text("DELETE FROM favorite WHERE uid = :user_id AND gameid = :game_id")
     db.session.execute(sql, {'user_id': user_id, 'game_id': game_id})
     db.session.commit()
@@ -80,5 +80,5 @@ def delete_game():
     user_name = ""
     for row in result:
         user_name = row[0]
-    print(user_name)
+    # print(user_name)
     return redirect(url_for('home', user_id=user_id, user_name = user_name))

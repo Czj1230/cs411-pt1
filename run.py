@@ -8,6 +8,5 @@ from exts import db
 
 if __name__ == '__main__':
     # run server
-    print("run.py")
     server = pywsgi.WSGIServer(('0.0.0.0',5000),app)
     server.serve_forever()
