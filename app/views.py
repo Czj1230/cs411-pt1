@@ -61,8 +61,7 @@ def home():
     userNameExist = db.session.execute(pre_sql, {'uid': user_id})
     userNameCnt = userNameExist.fetchall()
     number_of_rows = len(userNameCnt)
-    if(user_id== "-1" or user_id=="" or number_of_rows==0):
-        # print("==============")
+    if(number_of_rows==0):
         return render_template('index.html', show_alert=True)
     games = get_favorite_games(int(user_id))  # This function will fetch favorite games
 
