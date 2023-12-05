@@ -92,6 +92,11 @@ def game_detail(game_id):
     if game_result is None:
         # Handle the case where no game is found
         return "Game not found", 404
+    
+    rating = text("SELECT * FROM GameAverageRatings WHERE gameid = :game_id")
+    rating_result = db.session.execute(rating, {'game_id': game_id}).fetchone()
+    
+    
     picture_query = text("SELECT * FROM extrainfo WHERE gameid = :searchid")
     picture_result = db.session.execute(picture_query, {'searchid': game_id})
     image = [item for item in picture_result]
@@ -105,7 +110,8 @@ def game_detail(game_id):
         'image': image_list[5],
         'website': image_list[4],
         'background': image_list[6],
-        'favorite_status': favorite_status
+        'favorite_status': favorite_status,
+        'avg_rating': rating_result[1]
         # ... other fields ...
     }
 
