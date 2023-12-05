@@ -256,13 +256,6 @@ footer {
     /* 这将帮助保持图片的比例 */
 }
 
-body {
-    background-image: url('https://uiuiui.in/uploads/posts/2022-11/2788842028-c918318928bc49d2e79d2f266f03f496.webp');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    color: #FFFFFF;
-}
 
 #searchResults .result-item {
     border: 1px solid #ccc;
@@ -292,3 +285,23 @@ body {
     color: red;
     /* Change this to the desired color for selected (added) games */
 }
+
+< !DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style> :root {
+    --background-image: url('default-image.jpg');
+}
+
+body {
+    background-image: var(--background-image);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #FFFFFF;
+}
+
+</style></head><body><script>var images=[ 'url("image1.jpg")',
+'url("image2.jpg")',
+// ... more image URLs
+];
+var randomImage=images[Math.floor(Math.random() * images.length)];
+document.documentElement.style.setProperty('--background-image', randomImage);
+</script></body></html>

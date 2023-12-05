@@ -8,9 +8,17 @@
 <main>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <h1>
-        {{ game.name }}
+        <span style="color: black;">{{ game.name }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="color: blue;">Rating: 
+            {% for i in range(5) %}
+                {% if i < game.avg_rating %}
+                    <i class="fas fa-heart" style="color: blue;"></i>
+                {% else %}
+                    <i class="far fa-heart" style="color: blue;"></i>
+                {% endif %}
+            {% endfor %}
         {% if user_name %}
-        <p>
+        <p><span style="color: red;">Like: 
             <span class="favorite-heart {% if game.favorite_status == 'added' %}selected{% endif %}" id="favoriteHeart">♥</span>
 
         </p>
@@ -18,7 +26,8 @@
     
     </h1>
     
-    <p>{{ game.description }}</p>
+    <p><span style="color: black;">{{ game.description }}</p>
+    
     <!-- Display other game details -->
     <img src="{{ game.image }}" alt="{{ game.name }}" style="max-width: 100%; height: auto;">
     <p></p>
@@ -30,6 +39,8 @@
         <img src="{{ game.background }}" alt="{{ game.name }}" style="max-width: 100%; height: auto;">
     {% endif %}
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <ul>
 
