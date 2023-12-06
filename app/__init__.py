@@ -27,13 +27,11 @@ def create_trigger():
     trigger_sql = text("""
         
         CREATE TRIGGER IF NOT EXISTS after_insert_review
-        AFTER INSERT ON review
+        BEFORE INSERT ON review
         FOR EACH ROW
         BEGIN
-            IF new.comment IS NULL THEN 
-                UPDATE review 
-                SET comment="This user has no comments yet." 
-                WHERE reviewid = new.reviewid;
+            IF NEW.comment="" THEN 
+                SET NEW.comment="This user has no comments yet.";
             END IF;
         END;
     """)
