@@ -6,7 +6,7 @@ game_bp = Blueprint('games', __name__)
 
 @game_bp.route('/getGame')
 def getGame():
-    print("getGame")
+    # print("getGame")
     return {"sdf":"hsdf"}
 
 
@@ -93,13 +93,17 @@ def game_detail(game_id):
         # Handle the case where no game is found
         return "Game not found", 404
     
+    call_proceduere = text("call AverageGameRatings()")
+    db.session.execute(call_proceduere)
+    db.session.commit()
+
     rating = text("SELECT * FROM GameAverageRatings WHERE gameid = :game_id")
     rating_result = db.session.execute(rating, {'game_id': game_id}).fetchone()
     
     review = text("SELECT uid, comment, date FROM review NATURAL JOIN include JOIN writereview ON (writereview.reviewid = include.reviewid) WHERE gameid = :game_id")
     review_result = db.session.execute(review, {'game_id': game_id}).fetchall()
     reviews = [item for item in review_result]
-    print(reviews)
+    # print(reviews)
     
     picture_query = text("SELECT * FROM extrainfo WHERE gameid = :searchid")
     picture_result = db.session.execute(picture_query, {'searchid': game_id})

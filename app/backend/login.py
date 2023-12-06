@@ -18,14 +18,15 @@ def login():
         result = userexist.fetchall()
         number_of_rows = len(result)
 
-        print(number_of_rows)
-        print(result)
-        print(type(result))
+        # print(number_of_rows)
+        # print(result)
+        # print(type(result))
         if number_of_rows != 0:
             # Login is successful
             return render_template('index.html', user_id = result[0][0], user_name=result[0][1])
         else:
             # Login failed
+            return render_template('userlogin.html', show_alert=True)
             flash('Invalid username or password.', 'danger')
 
     return render_template('userlogin.html', show_alert=True)

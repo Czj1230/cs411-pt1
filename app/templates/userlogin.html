@@ -132,12 +132,15 @@
                 modal.style.display = "none";
             }
         }
+        // window.onload = function() {
+        //     {% if show_alert %}
+        //         alert("No User Found! Sign Up First");
+        //     {% endif %}
+        // };
         window.onload = function() {
             {% if show_alert %}
                 alert("No User Found! Sign Up First");
             {% endif %}
-        };
-        window.onload = function() {
             {% if show_userNameExist %}
                 alert("Username has already been used\nTry it again.");
             {% endif %}
